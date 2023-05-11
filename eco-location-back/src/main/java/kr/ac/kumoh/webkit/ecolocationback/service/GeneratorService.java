@@ -2,6 +2,7 @@ package kr.ac.kumoh.webkit.ecolocationback.service;
 
 import java.util.List;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.GeneratorCountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,17 @@ public class GeneratorService {
     
     public List<Generator> getGeneratorsByPowerSource(String powerSource){
     	return generatorRepository.findByPowerSource(powerSource);
+    }
+
+
+    public GeneratorCountDto getGeneratorsCountByAreaAndPower(String detailArea) {
+        List<Generator> generatorList = generatorRepository.findByDetailArea(detailArea);
+
+        GeneratorCountDto generatorCountDto = new GeneratorCountDto();
+        for (Generator generator : generatorList) {
+            generatorCountDto.count(generator);
+        }
+
+        return generatorCountDto;
     }
 }

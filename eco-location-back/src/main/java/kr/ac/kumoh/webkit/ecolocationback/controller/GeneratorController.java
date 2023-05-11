@@ -1,8 +1,12 @@
 package kr.ac.kumoh.webkit.ecolocationback.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.GeneratorCountDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +36,13 @@ public class GeneratorController {
     @GetMapping(params = "powerSource")
     public List<Generator> getGeneratorsByPowerSource(@RequestParam("powerSource") String powerSource) {
         return generatorService.getGeneratorsByPowerSource(powerSource);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<GeneratorCountDto> getGenerators(@RequestParam("detailArea") String detailArea){
+        GeneratorCountDto generatorCountDto = generatorService.getGeneratorsCountByAreaAndPower(detailArea);
+
+        return ResponseEntity.ok().body(generatorCountDto);
     }
 
 }

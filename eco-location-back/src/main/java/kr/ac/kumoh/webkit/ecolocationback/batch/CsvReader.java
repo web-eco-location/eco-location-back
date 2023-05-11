@@ -1,5 +1,6 @@
 package kr.ac.kumoh.webkit.ecolocationback.batch;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
@@ -38,6 +39,31 @@ public class CsvReader {
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
 
         /* lineMapper 지정 */
+        flatFileItemReader.setLineMapper(defaultLineMapper);
+
+        return flatFileItemReader;
+    }
+
+    // 재생 에너지 잠재량 데이터 가져오기
+    @Bean
+    public ItemReader<? extends EnergyPotentialDto> csvFileItemReader_Potential() {
+        FlatFileItemReader<EnergyPotentialDto> flatFileItemReader = new FlatFileItemReader<>();
+        flatFileItemReader.setResource(new ClassPathResource("/csv/totalEnergyPotential.csv"));
+        flatFileItemReader.setLinesToSkip(1); // header line skip
+        flatFileItemReader.setEncoding("UTF-8"); // encoding
+
+        DefaultLineMapper<EnergyPotentialDto> defaultLineMapper = new DefaultLineMapper<>();
+
+        DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer(",");
+        delimitedLineTokenizer.setNames("PWR_EXC_TP_CD","AREA", "CRTN_TM", "FCST_TM", "LEAD_TM", "FCST_EP", "FCST_CAPA");
+        delimitedLineTokenizer.setStrict(true);
+        defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
+
+        BeanWrapperFieldSetMapper<EnergyPotentialDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        beanWrapperFieldSetMapper.setTargetType(EnergyPotentialDto.class);
+
+        defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
+
         flatFileItemReader.setLineMapper(defaultLineMapper);
 
         return flatFileItemReader;

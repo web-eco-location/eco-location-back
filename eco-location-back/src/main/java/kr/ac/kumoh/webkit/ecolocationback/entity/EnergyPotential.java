@@ -17,29 +17,29 @@ public class EnergyPotential {
     @Column(name = "EngergyPotential_id")
     private Long id;
     // 전력 구분
-    private String PWR_EXC_TP_CD;
+    private String powerType;
     // 지역 구분
-    private String AREA;
+    private String areaName;
     // 생성 시간
-    private String CRTN_TM;
+    private String createTime;
     // 예측 시간
-    private String FCST_TM;
+    private String forecastTime;
     // 선행시간
-    private String LEAD_TM;
+    private String leadTime;
     // 예측 에너지 잠재량
-    private String FCST_EP;
+    private String forecastEnergyPotential;
     // 예측 설비용량
-    private String FCST_CAPA;
+    private String forecastCapacity;
 
     @Builder
-    public EnergyPotential(String PWR_EXC_TP_CD, String AREA, String CRTN_TM, String FCST_TM, String LEAD_TM, String FCST_EP, String FCST_CAPA) {
-        this.PWR_EXC_TP_CD = PWR_EXC_TP_CD;
-        this.AREA = AREA;
-        this.CRTN_TM = CRTN_TM;
-        this.FCST_TM = FCST_TM;
-        this.LEAD_TM = LEAD_TM;
-        this.FCST_EP = FCST_EP;
-        this.FCST_CAPA = FCST_CAPA;
+    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime, String leadTime, String forecastEnergyPotential, String forecastCapacity) {
+        this.powerType = powerType;
+        this.areaName = areaName;
+        this.createTime = createTime;
+        this.forecastTime = forecastTime;
+        this.leadTime = leadTime;
+        this.forecastEnergyPotential = forecastEnergyPotential;
+        this.forecastCapacity = forecastCapacity;
     }
 
 }

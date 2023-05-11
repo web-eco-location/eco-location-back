@@ -55,7 +55,7 @@ public class CsvReader {
         DefaultLineMapper<EnergyPotentialDto> defaultLineMapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer(",");
-        delimitedLineTokenizer.setNames("PWR_EXC_TP_CD","AREA", "CRTN_TM", "FCST_TM", "LEAD_TM", "FCST_EP", "FCST_CAPA");
+        delimitedLineTokenizer.setNames("powerType","areaName", "createTime", "forecastTime", "leadTime", "forecastEnergyPotential", "forecastCapacity");
         delimitedLineTokenizer.setStrict(true);
         defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
 

@@ -5,17 +5,17 @@ import lombok.Data;
 @Data
 public class EnergyPotentialDto {
     // 전력 구분
-    private String PWR_EXC_TP_CD;
+    private String powerType;
     // 지역 구분
-    private String AREA;
+    private String areaName;
     // 생성 시간
-    private String CRTN_TM;
+    private String createTime;
     // 예측 시간
-    private String FCST_TM;
+    private String forecastTime;
     // 선행시간
-    private String LEAD_TM;
+    private String leadTime;
     // 예측 에너지 잠재량
-    private String FCST_EP;
+    private String forecastEnergyPotential;
     // 예측 설비용량
-    private String FCST_CAPA;
+    private String forecastCapacity;
 }

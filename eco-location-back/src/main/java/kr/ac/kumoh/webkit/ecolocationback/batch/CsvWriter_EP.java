@@ -24,13 +24,13 @@ public class CsvWriter_EP implements ItemWriter<EnergyPotentialDto>{
 
         list.forEach(getTempPotential->{
             EnergyPotential potential = EnergyPotential.builder()
-                    .PWR_EXC_TP_CD(getTempPotential.getPWR_EXC_TP_CD())
-                    .AREA(getTempPotential.getAREA())
-                    .CRTN_TM(getTempPotential.getCRTN_TM())
-                    .FCST_TM(getTempPotential.getFCST_TM())
-                    .LEAD_TM(getTempPotential.getLEAD_TM())
-                    .FCST_EP(getTempPotential.getFCST_EP())
-                    .FCST_CAPA(getTempPotential.getFCST_CAPA())
+                    .powerType(getTempPotential.getPowerType())
+                    .areaName(getTempPotential.getAreaName())
+                    .createTime(getTempPotential.getCreateTime())
+                    .forecastTime(getTempPotential.getForecastTime())
+                    .leadTime(getTempPotential.getLeadTime())
+                    .forecastEnergyPotential(getTempPotential.getForecastEnergyPotential())
+                    .forecastCapacity(getTempPotential.getForecastCapacity())
                     .build();
             potentialsList.add(potential);
         });

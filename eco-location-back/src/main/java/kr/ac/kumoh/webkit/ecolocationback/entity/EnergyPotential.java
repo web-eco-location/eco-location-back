@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
-@Table(name = "EnergyPotentials")
+@Table(name = "energy_potentials")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class EnergyPotential {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EnergyPotential_id")
+    @Column(name = "energy_potential_id")
     private Long id;
     // 전력 구분
     private String powerType;

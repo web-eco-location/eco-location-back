@@ -1,5 +1,6 @@
 package kr.ac.kumoh.webkit.ecolocationback.controller;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.PotentialByRegionDto;
 import kr.ac.kumoh.webkit.ecolocationback.entity.EnergyPotential;
 import kr.ac.kumoh.webkit.ecolocationback.service.EnergyPotentialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,14 @@ public class EnergyPotentialController {
             @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime firstForecastTime,
             @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime secondForecastTime){
         return energyPotentialService.getEPByForecastTimeBetween(firstForecastTime, secondForecastTime);
+    }
+
+    // 발전원별 잠재량 표시
+    @GetMapping("/source")
+    public PotentialByRegionDto getEnergyPotentialBySourceAndYear(@RequestParam("sourceType") String sourceType,
+                                                                  @RequestParam("year") int year){
+        LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
+        LocalDateTime end = LocalDateTime.of(year, 12, 31, 23, 59);
+        return energyPotentialService.getAllEnergyPotentialBySourceAndYear(sourceType,start,end);
     }
 }

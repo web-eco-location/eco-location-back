@@ -6,33 +6,42 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
-@Table(name = "EngergyPotentials")
+@Table(name = "EnergyPotentials")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class EnergyPotential {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EngergyPotential_id")
+    @Column(name = "EnergyPotential_id")
     private Long id;
     // 전력 구분
     private String powerType;
     // 지역 구분
     private String areaName;
     // 생성 시간
-    private String createTime;
+    private LocalDateTime createTime;
     // 예측 시간
-    private String forecastTime;
+    private LocalDateTime forecastTime;
     // 선행시간
-    private String leadTime;
+    private Long leadTime;
     // 예측 에너지 잠재량
-    private String forecastEnergyPotential;
+    private double forecastEnergyPotential;
     // 예측 설비용량
-    private String forecastCapacity;
+    private double forecastCapacity;
 
     @Builder
-    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime, String leadTime, String forecastEnergyPotential, String forecastCapacity) {
+    public EnergyPotential(String powerType, String areaName, String createTime_s, String forecastTime_s,
+                           Long leadTime, double forecastEnergyPotential, double forecastCapacity) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+
+        LocalDateTime createTime = LocalDateTime.parse(createTime_s, formatter);
+        LocalDateTime forecastTime = LocalDateTime.parse(forecastTime_s, formatter);
+
         this.powerType = powerType;
         this.areaName = areaName;
         this.createTime = createTime;
@@ -41,5 +50,4 @@ public class EnergyPotential {
         this.forecastEnergyPotential = forecastEnergyPotential;
         this.forecastCapacity = forecastCapacity;
     }
-
 }

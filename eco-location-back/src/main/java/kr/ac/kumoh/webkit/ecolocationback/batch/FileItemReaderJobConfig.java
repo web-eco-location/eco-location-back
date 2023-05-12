@@ -2,6 +2,7 @@ package kr.ac.kumoh.webkit.ecolocationback.batch;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.AreaGeneratorSourceDto;
 import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,11 @@ public class FileItemReaderJobConfig {
     private final StepBuilderFactory stepBuilderFactory_EP;
     private final CsvWriter_EP csvWriter_ep;
 
+    // 재생에너지 전환율 
+    private final JobBuilderFactory jobBuilderFactory_AreaGeneratorSource;
+    private final StepBuilderFactory stepBuilderFactory_AreaGeneratorSource;
+    private final CsvWriter_AreaGeneratorSource csvWriter_AreaGeneratorSource;
+    
     private static final int chunkSize = 1000;
 
     @Bean
@@ -57,6 +63,22 @@ public class FileItemReaderJobConfig {
                 .<EnergyPotentialDto, EnergyPotentialDto>chunk(chunkSize)
                 .reader(csvReader.csvFileItemReader_Potential())
                 .writer(csvWriter_ep)
+                .build();
+    }
+    
+    @Bean
+    public Job csvFileItemReaderJob_AreaGeneratorSource() {
+        return jobBuilderFactory_AreaGeneratorSource.get("csvFileItemReaderJob_AreaGeneratorSource")
+                .start(csvFileItemReaderStep_AreaGeneratorSource())
+                .build();
+    }
+
+    @Bean
+    public Step csvFileItemReaderStep_AreaGeneratorSource(){
+        return stepBuilderFactory_AreaGeneratorSource.get("csvFileItemReaderStep_AreaGeneratorSource")
+                .<AreaGeneratorSourceDto, AreaGeneratorSourceDto>chunk(chunkSize)
+                .reader(csvReader.csvFileItemReader_AreaGeneratorSource())
+                .writer(csvWriter_AreaGeneratorSource)
                 .build();
     }
 }

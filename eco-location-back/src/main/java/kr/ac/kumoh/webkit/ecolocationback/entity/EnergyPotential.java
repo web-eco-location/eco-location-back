@@ -34,18 +34,18 @@ public class EnergyPotential {
     private double forecastCapacity;
 
     @Builder
-    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime,
+    public EnergyPotential(String powerType, String areaName, String createTime_s, String forecastTime_s,
                            Long leadTime, double forecastEnergyPotential, double forecastCapacity) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
 
-        LocalDateTime createTime_s = LocalDateTime.parse(createTime, formatter);
-        LocalDateTime forecastTime_s = LocalDateTime.parse(forecastTime, formatter);
+        LocalDateTime createTime = LocalDateTime.parse(createTime_s, formatter);
+        LocalDateTime forecastTime = LocalDateTime.parse(forecastTime_s, formatter);
 
         this.powerType = powerType;
         this.areaName = areaName;
-        this.createTime = createTime_s;
-        this.forecastTime = forecastTime_s;
+        this.createTime = createTime;
+        this.forecastTime = forecastTime;
         this.leadTime = leadTime;
         this.forecastEnergyPotential = forecastEnergyPotential;
         this.forecastCapacity = forecastCapacity;

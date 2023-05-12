@@ -26,10 +26,10 @@ public class EnergyPotentialController {
     }
 
     // 사용자가 원하는 기간을 지정하여 보내면 지정된 기간 사이의 잠재 발전량 데이터를 전부 전송한다.
-    @GetMapping("/getEP")
+    @GetMapping
     public List<EnergyPotential> getEPByForecastTimeBetween(
-            @RequestParam("1stEP") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime firstForecastTime,
-            @RequestParam("2stEP") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime secondForecastTime){
+            @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime firstForecastTime,
+            @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime secondForecastTime){
         return energyPotentialService.getEPByForecastTimeBetween(firstForecastTime, secondForecastTime);
     }
 }

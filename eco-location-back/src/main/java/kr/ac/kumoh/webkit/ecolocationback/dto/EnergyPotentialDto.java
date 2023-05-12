@@ -11,9 +11,9 @@ public class EnergyPotentialDto {
     // 지역 구분
     private String areaName;
     // 생성 시간
-    private String createTime;
+    private String createTime_s;
     // 예측 시간
-    private String forecastTime;
+    private String forecastTime_s;
     // 선행시간
     private long leadTime;
     // 예측 에너지 잠재량

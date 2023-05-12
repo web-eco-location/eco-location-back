@@ -2,7 +2,7 @@ package kr.ac.kumoh.webkit.ecolocationback.batch;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
-import kr.ac.kumoh.webkit.ecolocationback.dto.RecycleRatioDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.AreaGeneratorSourceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -70,23 +70,23 @@ public class CsvReader {
         return flatFileItemReader;
     }
     
-    // 재생 에너지 잠재량 데이터 가져오기
+    // 월간 지역별 발전원별 발전설비 CSV 데이터 가져오기
     @Bean
-    public ItemReader<? extends RecycleRatioDto> csvFileItemReader_RecycleRatio() {
-        FlatFileItemReader<RecycleRatioDto> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new ClassPathResource("/csv/RecycleRatio.csv"));
+    public ItemReader<? extends AreaGeneratorSourceDto> csvFileItemReader_AreaGeneratorSource() {
+        FlatFileItemReader<AreaGeneratorSourceDto> flatFileItemReader = new FlatFileItemReader<>();
+        flatFileItemReader.setResource(new ClassPathResource("/csv/AreaGeneratorSource.csv"));
         flatFileItemReader.setLinesToSkip(1); // header line skip
         flatFileItemReader.setEncoding("UTF-8"); // encoding
 
-        DefaultLineMapper<RecycleRatioDto> defaultLineMapper = new DefaultLineMapper<>();
+        DefaultLineMapper<AreaGeneratorSourceDto> defaultLineMapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer(",");
         delimitedLineTokenizer.setNames("time", "area", "srcNucl", "srcBcoal", "srcHcoal", "srcOil", "srcLnc", "srcPump", "srcFuelcell", "srcCoalgas", "srcSolar", "srcWind", "srcWater", "srcSea", "srcBio", "srcWaste", "srcRecycleSum", "srcOther", "srcAll", "recyclePercent");
         delimitedLineTokenizer.setStrict(true);
         defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
 
-        BeanWrapperFieldSetMapper<RecycleRatioDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        beanWrapperFieldSetMapper.setTargetType(RecycleRatioDto.class);
+        BeanWrapperFieldSetMapper<AreaGeneratorSourceDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        beanWrapperFieldSetMapper.setTargetType(AreaGeneratorSourceDto.class);
 
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class CsvWriter_EP implements ItemWriter<EnergyPotentialDto>{
+public class EnergyPotentialCsvWriter implements ItemWriter<EnergyPotentialDto>{
 
     private final EnergyPotentialRepository energyPotentialRepository;
 
@@ -35,7 +35,7 @@ public class CsvWriter_EP implements ItemWriter<EnergyPotentialDto>{
             potentialsList.add(potential);
         });
 
-        energyPotentialRepository.saveAll(new ArrayList<EnergyPotential>(potentialsList));
+        energyPotentialRepository.saveAll(potentialsList);
     }
 
 }

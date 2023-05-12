@@ -12,7 +12,7 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class CsvWriter implements ItemWriter<GeneratorDto> {
+public class GeneratorInfoCsvWriter implements ItemWriter<GeneratorDto> {
 
     private final GeneratorRepository generatorRepository;
 
@@ -38,6 +38,6 @@ public class CsvWriter implements ItemWriter<GeneratorDto> {
             generatorList.add(generator);
         });
 
-        generatorRepository.saveAll(new ArrayList<Generator>(generatorList));
+        generatorRepository.saveAll(generatorList);
     }
 }

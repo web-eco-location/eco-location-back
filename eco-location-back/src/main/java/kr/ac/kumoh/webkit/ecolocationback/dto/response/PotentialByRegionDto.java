@@ -7,8 +7,7 @@ import lombok.Data;
 public class PotentialByRegionDto {
     private double GyeonggiDo = 0;
     private double GangwonDo = 0;
-    private double ChungcheongbukDo = 0;
-    private double ChungcheongnamDo = 0;
+    private double ChungcheongDo = 0;
     private double JeollabukDo = 0;
     private double JeollanamDo = 0;
     private double GyeongsangbukDo = 0;
@@ -23,11 +22,8 @@ public class PotentialByRegionDto {
             case "강원도":
                 this.GangwonDo += item.getForecastEnergyPotential();
                 break;
-            case "충청북도":
-                this.ChungcheongbukDo += item.getForecastEnergyPotential();
-                break;
-            case "충청남도":
-                this.ChungcheongnamDo += item.getForecastEnergyPotential();
+            case "충청도":
+                this.ChungcheongDo += item.getForecastEnergyPotential();
                 break;
             case "전라북도":
                 this.JeollabukDo += item.getForecastEnergyPotential();

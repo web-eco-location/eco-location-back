@@ -2,6 +2,7 @@ package kr.ac.kumoh.webkit.ecolocationback.batch;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.RecycleRatioDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -61,6 +62,31 @@ public class CsvReader {
 
         BeanWrapperFieldSetMapper<EnergyPotentialDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
         beanWrapperFieldSetMapper.setTargetType(EnergyPotentialDto.class);
+
+        defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
+
+        flatFileItemReader.setLineMapper(defaultLineMapper);
+
+        return flatFileItemReader;
+    }
+    
+    // 재생 에너지 잠재량 데이터 가져오기
+    @Bean
+    public ItemReader<? extends RecycleRatioDto> csvFileItemReader_RecycleRatio() {
+        FlatFileItemReader<RecycleRatioDto> flatFileItemReader = new FlatFileItemReader<>();
+        flatFileItemReader.setResource(new ClassPathResource("/csv/RecycleRatio.csv"));
+        flatFileItemReader.setLinesToSkip(1); // header line skip
+        flatFileItemReader.setEncoding("UTF-8"); // encoding
+
+        DefaultLineMapper<RecycleRatioDto> defaultLineMapper = new DefaultLineMapper<>();
+
+        DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer(",");
+        delimitedLineTokenizer.setNames("time", "area", "srcNucl", "srcBcoal", "srcHcoal", "srcOil", "srcLnc", "srcPump", "srcFuelcell", "srcCoalgas", "srcSolar", "srcWind", "srcWater", "srcSea", "srcBio", "srcWaste", "srcRecycleSum", "srcOther", "srcAll", "recyclePercent");
+        delimitedLineTokenizer.setStrict(true);
+        defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
+
+        BeanWrapperFieldSetMapper<RecycleRatioDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        beanWrapperFieldSetMapper.setTargetType(RecycleRatioDto.class);
 
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
 

@@ -2,6 +2,7 @@ package kr.ac.kumoh.webkit.ecolocationback.batch;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.RecycleRatioDto;
 import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,11 @@ public class FileItemReaderJobConfig {
     private final StepBuilderFactory stepBuilderFactory_EP;
     private final CsvWriter_EP csvWriter_ep;
 
+    // 재생에너지 전환율 
+    private final JobBuilderFactory jobBuilderFactory_RR;
+    private final StepBuilderFactory stepBuilderFactory_RR;
+    private final CsvWriter_RR csvWriter_rr;
+    
     private static final int chunkSize = 1000;
 
     @Bean
@@ -57,6 +63,22 @@ public class FileItemReaderJobConfig {
                 .<EnergyPotentialDto, EnergyPotentialDto>chunk(chunkSize)
                 .reader(csvReader.csvFileItemReader_Potential())
                 .writer(csvWriter_ep)
+                .build();
+    }
+    
+    @Bean
+    public Job csvFileItemReaderJob_RR() {
+        return jobBuilderFactory_RR.get("csvFileItemReaderJob_RR")
+                .start(csvFileItemReaderStep_RR())
+                .build();
+    }
+
+    @Bean
+    public Step csvFileItemReaderStep_RR(){
+        return stepBuilderFactory_RR.get("csvFileItemReaderStep_RR")
+                .<RecycleRatioDto, RecycleRatioDto>chunk(chunkSize)
+                .reader(csvReader.csvFileItemReader_RecycleRatio())
+                .writer(csvWriter_rr)
                 .build();
     }
 }

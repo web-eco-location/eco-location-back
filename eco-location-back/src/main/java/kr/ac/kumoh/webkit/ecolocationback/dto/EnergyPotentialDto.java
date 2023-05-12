@@ -15,7 +15,7 @@ public class EnergyPotentialDto {
     // 선행시간
     private String leadTime;
     // 예측 에너지 잠재량
-    private String forecastEnergyPotential;
+    private double forecastEnergyPotential;
     // 예측 설비용량
-    private String forecastCapacity;
+    private double forecastCapacity;
 }

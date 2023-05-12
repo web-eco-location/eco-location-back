@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Table(name = "EngergyPotentials")
+@Table(name = "EnergyPotentials")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class EnergyPotential {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EngergyPotential_id")
+    @Column(name = "EnergyPotential_id")
     private Long id;
     // 전력 구분
     private String powerType;
@@ -27,12 +27,12 @@ public class EnergyPotential {
     // 선행시간
     private String leadTime;
     // 예측 에너지 잠재량
-    private String forecastEnergyPotential;
+    private double forecastEnergyPotential;
     // 예측 설비용량
-    private String forecastCapacity;
+    private double forecastCapacity;
 
     @Builder
-    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime, String leadTime, String forecastEnergyPotential, String forecastCapacity) {
+    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime, String leadTime, double forecastEnergyPotential, double forecastCapacity) {
         this.powerType = powerType;
         this.areaName = areaName;
         this.createTime = createTime;
@@ -41,5 +41,4 @@ public class EnergyPotential {
         this.forecastEnergyPotential = forecastEnergyPotential;
         this.forecastCapacity = forecastCapacity;
     }
-
 }

@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Table(name = "AreaGeneratorSource")
+@Table(name = "area_generator_source")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class AreaGeneratorSource {
 	@Id
+    @Column(name = "area_generator_source_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

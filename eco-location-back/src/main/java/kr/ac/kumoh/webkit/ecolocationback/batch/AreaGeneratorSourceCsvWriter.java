@@ -12,7 +12,7 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class CsvWriter_AreaGeneratorSource implements ItemWriter<AreaGeneratorSourceDto>{
+public class AreaGeneratorSourceCsvWriter implements ItemWriter<AreaGeneratorSourceDto>{
 
     private final AreaGeneratorSourceRepository AreaGeneratorSourceRepository;
 
@@ -48,7 +48,7 @@ public class CsvWriter_AreaGeneratorSource implements ItemWriter<AreaGeneratorSo
             AreaGeneratorSourceList.add(areaGeneratorSource);
         });
 
-        AreaGeneratorSourceRepository.saveAll(new ArrayList<AreaGeneratorSource>(AreaGeneratorSourceList));
+        AreaGeneratorSourceRepository.saveAll(AreaGeneratorSourceList);
     }
 
 }

@@ -3,7 +3,6 @@ package kr.ac.kumoh.webkit.ecolocationback.batch;
 import kr.ac.kumoh.webkit.ecolocationback.dto.EnergyPotentialDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.AreaGeneratorSourceDto;
-import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -20,65 +19,63 @@ public class FileItemReaderJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final CsvReader csvReader;
-    private final CsvWriter csvWriter;
+
+    // 발전소 정보
+    private final GeneratorInfoCsvWriter generatorInfoCsvWriter;
 
     // 재생 에너지 잠재량
-    private final JobBuilderFactory jobBuilderFactory_EP;
-    private final StepBuilderFactory stepBuilderFactory_EP;
-    private final CsvWriter_EP csvWriter_ep;
+    private final EnergyPotentialCsvWriter energyPotentialCsvWriter;
 
-    // 재생에너지 전환율 
-    private final JobBuilderFactory jobBuilderFactory_AreaGeneratorSource;
-    private final StepBuilderFactory stepBuilderFactory_AreaGeneratorSource;
-    private final CsvWriter_AreaGeneratorSource csvWriter_AreaGeneratorSource;
+    // 재생에너지 전환율
+    private final AreaGeneratorSourceCsvWriter areaGeneratorSourceCsvWriter;
     
     private static final int chunkSize = 1000;
 
     @Bean
-    public Job csvFileItemReaderJob() {
-        return jobBuilderFactory.get("csvFileItemReaderJob")
-                .start(csvFileItemReaderStep())
+    public Job generatorInfoCsvFileItemReaderJob() {
+        return jobBuilderFactory.get("generatorInfoCsvFileItemReaderJob")
+                .start(generatorInfoCsvFileItemReaderStep())
                 .build();
     }
 
     @Bean
-    public Step csvFileItemReaderStep() {
-        return stepBuilderFactory.get("csvFileItemReaderStep")
+    public Step generatorInfoCsvFileItemReaderStep() {
+        return stepBuilderFactory.get("generatorInfoCsvFileItemReaderStep")
                 .<GeneratorDto, GeneratorDto>chunk(chunkSize)
                 .reader(csvReader.csvFileItemReader())
-                .writer(csvWriter)
+                .writer(generatorInfoCsvWriter)
                 .build();
     }
 
     @Bean
-    public Job csvFileItemReaderJob_EP() {
-        return jobBuilderFactory_EP.get("csvFileItemReaderJob_EP")
-                .start(csvFileItemReaderStep_EP())
+    public Job energyPotentialCsvFileItemReaderJob() {
+        return jobBuilderFactory.get("energyPotentialCsvFileItemReaderJob")
+                .start(energyPotentialCsvFileItemReaderStep())
                 .build();
     }
 
     @Bean
-    public Step csvFileItemReaderStep_EP(){
-        return stepBuilderFactory_EP.get("csvFileItemReaderStep_EP")
+    public Step energyPotentialCsvFileItemReaderStep(){
+        return stepBuilderFactory.get("energyPotentialCsvFileItemReaderStep")
                 .<EnergyPotentialDto, EnergyPotentialDto>chunk(chunkSize)
                 .reader(csvReader.csvFileItemReader_Potential())
-                .writer(csvWriter_ep)
+                .writer(energyPotentialCsvWriter)
                 .build();
     }
     
     @Bean
-    public Job csvFileItemReaderJob_AreaGeneratorSource() {
-        return jobBuilderFactory_AreaGeneratorSource.get("csvFileItemReaderJob_AreaGeneratorSource")
-                .start(csvFileItemReaderStep_AreaGeneratorSource())
+    public Job areaGeneratorSourceCsvFileItemReaderJob() {
+        return jobBuilderFactory.get("areaGeneratorSourceCsvFileItemReaderJob")
+                .start(areaGeneratorSourceCsvFileItemReaderStep())
                 .build();
     }
 
     @Bean
-    public Step csvFileItemReaderStep_AreaGeneratorSource(){
-        return stepBuilderFactory_AreaGeneratorSource.get("csvFileItemReaderStep_AreaGeneratorSource")
+    public Step areaGeneratorSourceCsvFileItemReaderStep(){
+        return stepBuilderFactory.get("areaGeneratorSourceCsvFileItemReaderStep")
                 .<AreaGeneratorSourceDto, AreaGeneratorSourceDto>chunk(chunkSize)
                 .reader(csvReader.csvFileItemReader_AreaGeneratorSource())
-                .writer(csvWriter_AreaGeneratorSource)
+                .writer(areaGeneratorSourceCsvWriter)
                 .build();
     }
 }

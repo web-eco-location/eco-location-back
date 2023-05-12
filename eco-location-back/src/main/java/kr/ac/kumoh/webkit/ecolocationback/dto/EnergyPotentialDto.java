@@ -2,6 +2,8 @@ package kr.ac.kumoh.webkit.ecolocationback.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class EnergyPotentialDto {
     // 전력 구분
@@ -13,7 +15,7 @@ public class EnergyPotentialDto {
     // 예측 시간
     private String forecastTime;
     // 선행시간
-    private String leadTime;
+    private long leadTime;
     // 예측 에너지 잠재량
     private double forecastEnergyPotential;
     // 예측 설비용량

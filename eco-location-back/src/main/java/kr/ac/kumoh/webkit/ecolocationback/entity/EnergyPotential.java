@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Table(name = "EnergyPotentials")
@@ -21,22 +23,29 @@ public class EnergyPotential {
     // 지역 구분
     private String areaName;
     // 생성 시간
-    private String createTime;
+    private LocalDateTime createTime;
     // 예측 시간
-    private String forecastTime;
+    private LocalDateTime forecastTime;
     // 선행시간
-    private String leadTime;
+    private Long leadTime;
     // 예측 에너지 잠재량
     private double forecastEnergyPotential;
     // 예측 설비용량
     private double forecastCapacity;
 
     @Builder
-    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime, String leadTime, double forecastEnergyPotential, double forecastCapacity) {
+    public EnergyPotential(String powerType, String areaName, String createTime, String forecastTime,
+                           Long leadTime, double forecastEnergyPotential, double forecastCapacity) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+
+        LocalDateTime createTime_s = LocalDateTime.parse(createTime, formatter);
+        LocalDateTime forecastTime_s = LocalDateTime.parse(forecastTime, formatter);
+
         this.powerType = powerType;
         this.areaName = areaName;
-        this.createTime = createTime;
-        this.forecastTime = forecastTime;
+        this.createTime = createTime_s;
+        this.forecastTime = forecastTime_s;
         this.leadTime = leadTime;
         this.forecastEnergyPotential = forecastEnergyPotential;
         this.forecastCapacity = forecastCapacity;

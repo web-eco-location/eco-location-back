@@ -13,6 +13,10 @@ public class AreaGeneratorSourceService {
 
     @Autowired
     private AreaGeneratorSourceRepository areaGeneratorSourceRepository;
+    
+    public List<AreaGeneratorSource> getAllAreaGeneratorSource() {
+        return areaGeneratorSourceRepository.findAll();
+    }
 
     public AreaGeneratorSource saveAreaGeneratorSource(AreaGeneratorSource areaGeneratorSource) {
         return areaGeneratorSourceRepository.save(areaGeneratorSource);

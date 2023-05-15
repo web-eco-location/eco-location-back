@@ -1,6 +1,7 @@
 package kr.ac.kumoh.webkit.ecolocationback.controller;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.response.PotentialByRegionDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.PotentialBySourceDto;
 import kr.ac.kumoh.webkit.ecolocationback.entity.EnergyPotential;
 import kr.ac.kumoh.webkit.ecolocationback.service.EnergyPotentialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,18 @@ public class EnergyPotentialController {
         LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
         LocalDateTime end = LocalDateTime.of(year, 1, 2, 23, 59);
         return energyPotentialService.getAllEnergyPotentialByDate(start,end);
+    }
+
+    /**
+     * @param year 조회할 년도
+     * @param region 조회할 지역
+     * @return 태양, 풍력 잠재량 데이터(Wh)
+     */
+    // 발전원별 잠재량 표시
+    @GetMapping("/source-type")
+    public PotentialBySourceDto getEnergyPotentialByRegionAndYear(@RequestParam("year") int year, @RequestParam("region")String region){
+        LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
+        LocalDateTime end = LocalDateTime.of(year, 1, 2, 23, 59);
+        return energyPotentialService.getAllEnergyPotentialByDateAndRegion(start,end,region);
     }
 }

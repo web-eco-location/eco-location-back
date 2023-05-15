@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,8 +24,10 @@ public class EnergyPotential {
     // 지역 구분
     private String areaName;
     // 생성 시간
+    @DateTimeFormat(pattern = "yyyy-MM-dd H:mm")
     private LocalDateTime createTime;
     // 예측 시간
+    @DateTimeFormat(pattern = "yyyy-MM-dd H:mm")
     private LocalDateTime forecastTime;
     // 선행시간
     private Long leadTime;

@@ -1,6 +1,7 @@
 package kr.ac.kumoh.webkit.ecolocationback.service;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.response.PotentialByRegionDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.PotentialBySourceDto;
 import kr.ac.kumoh.webkit.ecolocationback.entity.EnergyPotential;
 import kr.ac.kumoh.webkit.ecolocationback.repository.EnergyPotentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,16 @@ public class EnergyPotentialService {
     public PotentialByRegionDto getAllEnergyPotentialByDate(LocalDateTime startTime, LocalDateTime endTime) {
         List<EnergyPotential> energyPotentialList = energyPotentialRepository.findByForecastTimeBetween(startTime,endTime);
         PotentialByRegionDto response = new PotentialByRegionDto();
+        for (EnergyPotential item:
+                energyPotentialList) {
+            response.addPotentialByEntity(item);
+        }
+        return response;
+    }
+
+    public PotentialBySourceDto getAllEnergyPotentialByDateAndRegion(LocalDateTime startTime, LocalDateTime endTime, String region) {
+        List<EnergyPotential> energyPotentialList = energyPotentialRepository.findByForecastTimeBetweenAndAreaName(startTime, endTime, region);
+        PotentialBySourceDto response = new PotentialBySourceDto();
         for (EnergyPotential item:
                 energyPotentialList) {
             response.addPotentialByEntity(item);

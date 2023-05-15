@@ -34,12 +34,11 @@ public class EnergyPotentialController {
         return energyPotentialService.getEPByForecastTimeBetween(firstForecastTime, secondForecastTime);
     }
 
-    // 발전원별 잠재량 표시
+    // 지역별 잠재량 표시
     @GetMapping("/source")
-    public PotentialByRegionDto getEnergyPotentialBySourceAndYear(@RequestParam("sourceType") String sourceType,
-                                                                  @RequestParam("year") int year){
+    public PotentialByRegionDto getEnergyPotentialBySourceAndYear(@RequestParam("year") int year){
         LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
-        LocalDateTime end = LocalDateTime.of(year, 12, 31, 23, 59);
-        return energyPotentialService.getAllEnergyPotentialBySourceAndYear(sourceType,start,end);
+        LocalDateTime end = LocalDateTime.of(year, 1, 2, 23, 59);
+        return energyPotentialService.getAllEnergyPotentialByDate(start,end);
     }
 }

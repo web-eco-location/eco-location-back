@@ -34,4 +34,14 @@ public class EnergyPotentialService {
         }
         return response;
     }
+
+    public PotentialByRegionDto getAllEnergyPotentialByDate(LocalDateTime startTime, LocalDateTime endTime) {
+        List<EnergyPotential> energyPotentialList = energyPotentialRepository.findByForecastTimeBetween(startTime,endTime);
+        PotentialByRegionDto response = new PotentialByRegionDto();
+        for (EnergyPotential item:
+                energyPotentialList) {
+            response.addPotentialByEntity(item);
+        }
+        return response;
+    }
 }

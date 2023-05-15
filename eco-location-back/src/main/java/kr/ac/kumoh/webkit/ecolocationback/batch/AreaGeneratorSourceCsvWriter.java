@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +23,12 @@ public class AreaGeneratorSourceCsvWriter implements ItemWriter<AreaGeneratorSou
     @Override
     public void write(List<? extends AreaGeneratorSourceDto> list) throws Exception {
         List<AreaGeneratorSource> AreaGeneratorSourceList = new ArrayList<>();
-
+        
         list.forEach(getTempAreaGeneratorSource->{
+        	LocalDate time = LocalDate.parse(getTempAreaGeneratorSource.getTime(), DateTimeFormatter.ofPattern("yy-MM-dd"));
+        	
         	AreaGeneratorSource areaGeneratorSource = AreaGeneratorSource.builder()
-        			.time(getTempAreaGeneratorSource.getTime())
+        			.time(time)
         			.area(getTempAreaGeneratorSource.getArea())
         			.srcNucl(getTempAreaGeneratorSource.getSrcNucl())
         			.srcBcoal(getTempAreaGeneratorSource.getSrcBcoal())

@@ -1,11 +1,13 @@
 package kr.ac.kumoh.webkit.ecolocationback.dto;
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
 public class AreaGeneratorSourceDto {
 
-	// 기간(ex : 05-23, 23년 5월이라는 뜻)
+	// 기간(ex : 23-05-01, 23년 5월이라는 뜻)
     private String time;
     
     // 지역(ex : 경북,서울 등 광역지역만 됨)

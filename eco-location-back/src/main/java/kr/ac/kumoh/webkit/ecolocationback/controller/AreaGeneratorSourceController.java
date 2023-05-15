@@ -37,4 +37,22 @@ public class AreaGeneratorSourceController {
         return areaGeneratorSourceService.getAreaGeneratorSourcesByTime(Time);
     }
 
+    // 사용자가 시작시간, 끝시간 데이터를 통해 GET요청을 보내면 해당하는 기간의 발전원별 발전설비 및 신재생에너지 전환율 데이터를 전부 전송한다.
+    // 아래 주석과 같이 요청을 보내면 된다.
+    // localhost:8080/areageneratorsource?betweenTime&StartTime=22-02&EndTime=22-05
+    @GetMapping(params = "betweenTime")
+    public List<AreaGeneratorSource> getAreaGeneratorSourcesBetweenTime(@RequestParam("StartTime") String StartTime, @RequestParam("EndTime") String EndTime) {
+        return areaGeneratorSourceService.getAreaGeneratorSourcesBetweenTime(StartTime, EndTime);
+    }
+    
+    // 사용자가 특정 지역, 시작시간, 끝시간 데이터를 통해 GET요청을 보내면 해당하는 지역, 기간의 발전원별 발전설비 및 신재생에너지 전환율 데이터를 전부 전송한다.
+    // 아래 주석과 같이 요청을 보내면 된다.
+    // localhost:8080/areageneratorsource?area=서울&startTime=22-01&endTime=22-12
+    @GetMapping(params = {"area", "startTime", "endTime"})
+    public List<AreaGeneratorSource> getAreaGeneratorSourcesByAreaAndBetweenTime(@RequestParam("area") String area,
+                                                                                  @RequestParam("startTime") String startTime,
+                                                                                  @RequestParam("endTime") String endTime) {
+        return areaGeneratorSourceService.getAreaGeneratorSourcesByAreaAndBetweenTime(area, startTime, endTime);
+    }
+    
 }

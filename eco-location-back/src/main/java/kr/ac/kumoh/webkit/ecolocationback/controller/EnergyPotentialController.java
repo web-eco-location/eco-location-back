@@ -37,7 +37,7 @@ public class EnergyPotentialController {
 
     // 지역별 잠재량 표시
     @GetMapping("/source")
-    public PotentialByRegionDto getEnergyPotentialBySourceAndYear(@RequestParam("year") int year){
+    public List<PotentialByRegionDto> getEnergyPotentialBySourceAndYear(@RequestParam("year") int year){
         LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
         LocalDateTime end = LocalDateTime.of(year, 1, 2, 23, 59);
         return energyPotentialService.getAllEnergyPotentialByDate(start,end);
@@ -50,9 +50,9 @@ public class EnergyPotentialController {
      */
     // 발전원별 잠재량 표시
     @GetMapping("/source-type")
-    public PotentialBySourceDto getEnergyPotentialByRegionAndYear(@RequestParam("year") int year, @RequestParam("region")String region){
+    public List<PotentialBySourceDto> getEnergyPotentialByRegionAndYear(@RequestParam("year") int year){
         LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
         LocalDateTime end = LocalDateTime.of(year, 1, 2, 23, 59);
-        return energyPotentialService.getAllEnergyPotentialByDateAndRegion(start,end,region);
+        return energyPotentialService.getAllEnergyPotentialByDateAndRegion(start,end);
     }
 }

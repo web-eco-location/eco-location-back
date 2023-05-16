@@ -1,24 +1,16 @@
 package kr.ac.kumoh.webkit.ecolocationback.dto.response;
 
-import kr.ac.kumoh.webkit.ecolocationback.entity.EnergyPotential;
 import lombok.Data;
 
 @Data
 public class PotentialBySourceDto {
-    private double potentialOfSolar = 0;
-    private double potentialOfWind = 0;
+    private String areaName;
+    private double solarEnergyPotential;
+    private double windEnergyPotential;
 
-    public void addPotentialByEntity(EnergyPotential item) {
-        switch (item.getPowerType()) {
-            case "1":
-                this.potentialOfSolar += item.getForecastEnergyPotential();
-                break;
-            case "2":
-                this.potentialOfWind += item.getForecastEnergyPotential();
-                break;
-            default:
-                // 예외 처리
-                break;
-        }
+    public PotentialBySourceDto(String areaName, double solarEnergyPotential, double windEnergyPotential) {
+        this.areaName = areaName;
+        this.solarEnergyPotential = solarEnergyPotential;
+        this.windEnergyPotential = windEnergyPotential;
     }
 }

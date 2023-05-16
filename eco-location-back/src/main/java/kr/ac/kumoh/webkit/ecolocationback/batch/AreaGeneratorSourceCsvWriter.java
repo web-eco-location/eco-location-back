@@ -25,10 +25,10 @@ public class AreaGeneratorSourceCsvWriter implements ItemWriter<AreaGeneratorSou
         List<AreaGeneratorSource> AreaGeneratorSourceList = new ArrayList<>();
         
         list.forEach(getTempAreaGeneratorSource->{
-        	LocalDate time = LocalDate.parse(getTempAreaGeneratorSource.getTime(), DateTimeFormatter.ofPattern("yy-MM-dd"));
+        	LocalDate date = LocalDate.parse(getTempAreaGeneratorSource.getDate(), DateTimeFormatter.ofPattern("yy-MM-dd"));
         	
         	AreaGeneratorSource areaGeneratorSource = AreaGeneratorSource.builder()
-        			.time(time)
+        			.date(date)
         			.area(getTempAreaGeneratorSource.getArea())
         			.srcNucl(getTempAreaGeneratorSource.getSrcNucl())
         			.srcBcoal(getTempAreaGeneratorSource.getSrcBcoal())

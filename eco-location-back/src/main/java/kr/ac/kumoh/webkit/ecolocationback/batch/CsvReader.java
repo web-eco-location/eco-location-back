@@ -32,7 +32,7 @@ public class CsvReader {
     // 월간 지역별 발전원별 발전설비 CSV 데이터 가져오기
     @Bean
     public ItemReader<? extends AreaGeneratorSourceDto> csvFileItemReader_AreaGeneratorSource() {
-        String[] headers = new String[]{"time", "area", "srcNucl", "srcBcoal", "srcHcoal", "srcOil", "srcLnc", "srcPump", "srcFuelcell", "srcCoalgas", "srcSolar", "srcWind", "srcWater", "srcSea", "srcBio", "srcWaste", "srcRecycleSum", "srcOther", "srcAll", "recyclePercent"};
+        String[] headers = new String[]{"date", "area", "srcNucl", "srcBcoal", "srcHcoal", "srcOil", "srcLnc", "srcPump", "srcFuelcell", "srcCoalgas", "srcSolar", "srcWind", "srcWater", "srcSea", "srcBio", "srcWaste", "srcRecycleSum", "srcOther", "srcAll", "recyclePercent"};
         return getFileItemReaderFromCsvFile("/csv/AreaGeneratorSource.csv",headers, AreaGeneratorSourceDto.class);
     }
 

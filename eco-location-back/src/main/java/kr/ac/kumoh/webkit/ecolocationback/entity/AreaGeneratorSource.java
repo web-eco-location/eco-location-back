@@ -22,7 +22,7 @@ public class AreaGeneratorSource {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate time;
+    private LocalDate date;
 
     @Column(nullable = false)
     private String area;
@@ -82,11 +82,11 @@ public class AreaGeneratorSource {
     private String recyclePercent;
 
     @Builder
-    public AreaGeneratorSource(LocalDate time, String area, String srcNucl, String srcBcoal, String srcHcoal, String srcOil,
+    public AreaGeneratorSource(LocalDate date, String area, String srcNucl, String srcBcoal, String srcHcoal, String srcOil,
                         String srcLng, String srcPump, String srcFuelcell, String srcCoalgas, String srcSolar,
                         String srcWind, String srcWater, String srcSea, String srcBio, String srcWaste,
                         String srcRecycleSum, String srcOther, String srcAll, String recyclePercent) {
-        this.time = time;
+        this.date = date;
         this.area = area;
         this.srcNucl = srcNucl;
         this.srcBcoal = srcBcoal;

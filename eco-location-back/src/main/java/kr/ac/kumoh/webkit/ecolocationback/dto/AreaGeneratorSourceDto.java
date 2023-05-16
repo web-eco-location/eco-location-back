@@ -8,7 +8,7 @@ import lombok.Data;
 public class AreaGeneratorSourceDto {
 
 	// 기간(ex : 23-05-01, 23년 5월이라는 뜻)
-    private String time;
+    private String date;
     
     // 지역(ex : 경북,서울 등 광역지역만 됨)
     private String area;

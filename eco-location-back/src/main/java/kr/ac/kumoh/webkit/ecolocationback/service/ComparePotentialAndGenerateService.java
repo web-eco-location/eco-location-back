@@ -168,7 +168,7 @@ public class ComparePotentialAndGenerateService {
                     .mapToDouble(EnergyPotential::getForecastEnergyPotential)
                     .sum();
         }
-        BigDecimal bigDecimal = BigDecimal.valueOf(potentialAmount);
+        BigDecimal bigDecimal = BigDecimal.valueOf(potentialAmount * 0.000001);
         formattedNumber = bigDecimal.toPlainString();
 
         return Double.parseDouble(formattedNumber);
@@ -191,7 +191,7 @@ public class ComparePotentialAndGenerateService {
             List<AreaGeneratorSource> areaGeneratorSources = groupedAreaGeneratorSources.get(area);
             if (areaGeneratorSources != null) {
                 generateAmount = areaGeneratorSources.stream()
-                        .mapToDouble(ag -> Double.parseDouble(ag.getSrcRecycleSum())).sum();
+                        .mapToDouble(ag -> Double.parseDouble(ag.getSrcSolar())+Double.parseDouble(ag.getSrcWind())).sum();
             }
             BigDecimal bigDecimal = BigDecimal.valueOf(generateAmount);
             formattedNumber = bigDecimal.toPlainString();

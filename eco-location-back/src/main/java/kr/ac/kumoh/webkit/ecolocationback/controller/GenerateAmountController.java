@@ -22,11 +22,12 @@ public class GenerateAmountController {
 
 
     @GetMapping("/average")
-    public ResponseEntity<List<GenerateAmountByYearDto>> getGenerators(@RequestParam("area") String detailArea){
+    public ResponseEntity<List<GenerateAmountByYearDto>> getGenerators(@RequestParam("area") String detailArea) {
         List<GenerateAmountByYearDto> response = generateAmountService.getGenerateAmountAverageByArea(detailArea);
 
         return ResponseEntity.ok().body(response);
-
+    }
+    
     @GetMapping(params = "date")
     public List<GenerateAmountByAreaDto> getGenerateAmountArea(@RequestParam("date") String date){
         return generateAmountService.GenerateAmountAreaByYear(date);

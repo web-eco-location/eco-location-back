@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.RenewableEnergyRateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +68,14 @@ public class AreaGeneratorSourceService {
         LocalDate endDate = YearMonth.parse(EndDate, formatter).atEndOfMonth();
 
         return areaGeneratorSourceRepository.findByAreaAndDateBetween(Area, startDate, endDate);
+    }
+
+    public List<RenewableEnergyRateDto> getRenewableEnergyRateByDate(LocalDate start, LocalDate end){
+        List<AreaGeneratorSource> areaGeneratorSourceList = areaGeneratorSourceRepository.findByDateBetween(start, end);
+        if (areaGeneratorSourceList.size() == 0) throw new NoSuchElementException("해당 날짜의 데이터가 없습니다.");
+
+        List<RenewableEnergyRateDto> result = RenewableEnergyRateDto.calculateRenewableEnergyRates(areaGeneratorSourceList);
+
+        return result;
     }
 }

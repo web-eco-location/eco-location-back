@@ -28,64 +28,64 @@ public class AreaGeneratorSource {
     private String area;
 
     @Column(nullable = false)
-    private String srcNucl;
+    private double srcNucl;
 
     @Column(nullable = false)
-    private String srcBcoal;
+    private double srcBcoal;
 
     @Column(nullable = false)
-    private String srcHcoal;
+    private double srcHcoal;
 
     @Column(nullable = false)
-    private String srcOil;
+    private double srcOil;
 
     @Column(nullable = false)
-    private String srcLng;
+    private double srcLng;
 
     @Column(nullable = false)
-    private String srcPump;
+    private double srcPump;
 
     @Column(nullable = false)
-    private String srcFuelcell;
+    private double srcFuelcell;
 
     @Column(nullable = false)
-    private String srcCoalgas;
+    private double srcCoalgas;
 
     @Column(nullable = false)
-    private String srcSolar;
+    private double srcSolar;
 
     @Column(nullable = false)
-    private String srcWind;
+    private double srcWind;
 
     @Column(nullable = false)
-    private String srcWater;
+    private double srcWater;
 
     @Column(nullable = false)
-    private String srcSea;
+    private double srcSea;
 
     @Column(nullable = false)
-    private String srcBio;
+    private double srcBio;
 
     @Column(nullable = false)
-    private String srcWaste;
+    private double srcWaste;
 
     @Column(nullable = false)
-    private String srcRecycleSum;
+    private double srcRecycleSum;
 
     @Column(nullable = false)
-    private String srcOther;
+    private double srcOther;
 
     @Column(nullable = false)
-    private String srcAll;
+    private double srcAll;
 
     @Column(nullable = false)
-    private String recyclePercent;
+    private double recyclePercent;
 
     @Builder
-    public AreaGeneratorSource(LocalDate date, String area, String srcNucl, String srcBcoal, String srcHcoal, String srcOil,
-                        String srcLng, String srcPump, String srcFuelcell, String srcCoalgas, String srcSolar,
-                        String srcWind, String srcWater, String srcSea, String srcBio, String srcWaste,
-                        String srcRecycleSum, String srcOther, String srcAll, String recyclePercent) {
+    public AreaGeneratorSource(LocalDate date, String area, double srcNucl, double srcBcoal, double srcHcoal, double srcOil,
+                               double srcLng, double srcPump, double srcFuelcell, double srcCoalgas, double srcSolar,
+                               double srcWind, double srcWater, double srcSea, double srcBio, double srcWaste,
+                               double srcRecycleSum, double srcOther, double srcAll, double recyclePercent) {
         this.date = date;
         this.area = area;
         this.srcNucl = srcNucl;

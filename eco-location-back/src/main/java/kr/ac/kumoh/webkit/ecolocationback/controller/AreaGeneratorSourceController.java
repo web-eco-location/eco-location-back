@@ -1,7 +1,9 @@
 package kr.ac.kumoh.webkit.ecolocationback.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.RenewableEnergyRateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +36,12 @@ public class AreaGeneratorSourceController {
         return areaGeneratorSourceService.getAreaGeneratorSourcesByDate(Date);
     }
 
-    @GetMapping(params = {"StartDate", "EndDate"})
-    public List<AreaGeneratorSource> getAreaGeneratorSourcesBetweenDate(@RequestParam("StartDate") String StartDate, @RequestParam("EndDate") String EndDate) {
-        return areaGeneratorSourceService.getAreaGeneratorSourcesBetweenDate(StartDate, EndDate);
+    @GetMapping
+    public ResponseEntity<List<RenewableEnergyRateDto>> getRenewableEnergyRateByDate(@RequestParam String start, @RequestParam String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        List<RenewableEnergyRateDto> response = areaGeneratorSourceService.getRenewableEnergyRateByDate(startDate, endDate);
+        return ResponseEntity.ok().body(response);
     }
     
     @GetMapping(params = {"Area", "StartDate", "EndDate"})
@@ -45,5 +50,6 @@ public class AreaGeneratorSourceController {
                                                                                   @RequestParam("EndDate") String EndDate) {
         return areaGeneratorSourceService.getAreaGeneratorSourcesByAreaAndBetweenDate(Area, StartDate, EndDate);
     }
-    
+
+
 }

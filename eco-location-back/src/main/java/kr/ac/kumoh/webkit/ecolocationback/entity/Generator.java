@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "generators")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Entity
+@Entity(name="Generator")
 public class Generator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Generator {
     // 호기
     private String generatorNum;
     // 설비용량
-    private String generateAmount;
+    private double generateAmount;
     // 회원구분
     private String memberType;
     // 급전방식
@@ -41,7 +41,7 @@ public class Generator {
     private String detailArea;
 
     @Builder
-    public Generator(String companyName, String generatorName, String generatorNum, String generateAmount, String memberType, String powerSupply, String powerSource, String generationType, String businessType, String wideArea, String detailArea) {
+    public Generator(String companyName, String generatorName, String generatorNum, double generateAmount, String memberType, String powerSupply, String powerSource, String generationType, String businessType, String wideArea, String detailArea) {
         this.companyName = companyName;
         this.generatorName = generatorName;
         this.generatorNum = generatorNum;

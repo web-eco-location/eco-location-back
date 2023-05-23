@@ -11,7 +11,7 @@ public class GeneratorDto {
     // 호기
     private String generatorNum;
     // 설비용량
-    private String generateAmount;
+    private double generateAmount;
     // 회원구분
     private String memberType;
     // 급전방식

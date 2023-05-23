@@ -1,13 +1,17 @@
 package kr.ac.kumoh.webkit.ecolocationback.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.response.GeneratorCountDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.RefineGeneratorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import kr.ac.kumoh.webkit.ecolocationback.repository.GeneratorRepository;
+
+import javax.persistence.*;
 
 @Service
 public class GeneratorService {
@@ -45,5 +49,19 @@ public class GeneratorService {
         }
 
         return generatorCountDto;
+    }
+
+    @PersistenceContext
+    private EntityManager em;
+    public List<RefineGeneratorDto> GeneratorRefine(){
+        TypedQuery<RefineGeneratorDto> query = em.createQuery(
+                "SELECT NEW kr.ac.kumoh.webkit.ecolocationback.dto.response.RefineGeneratorDto" +
+                        "(g.wideArea, g.powerSource, SUM(g.generateAmount) as amount) FROM Generator g " +
+                        "where g.powerSource in ('바이오에너지', '수력에너지', '연료전지', '태양에너지', '풍력에너지')" +
+                        " GROUP BY g.wideArea, g.powerSource",
+                RefineGeneratorDto.class);
+        List<RefineGeneratorDto> resultList = query.getResultList();
+
+        return resultList;
     }
 }

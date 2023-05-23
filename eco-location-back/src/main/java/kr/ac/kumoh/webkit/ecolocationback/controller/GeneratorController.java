@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.ac.kumoh.webkit.ecolocationback.dto.GeneratorDto;
 import kr.ac.kumoh.webkit.ecolocationback.dto.response.GeneratorCountDto;
+import kr.ac.kumoh.webkit.ecolocationback.dto.response.RefineGeneratorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,4 +46,8 @@ public class GeneratorController {
         return ResponseEntity.ok().body(generatorCountDto);
     }
 
+    @GetMapping("/refine")
+    public List<RefineGeneratorDto> getRefineGenerators(){
+        return generatorService.GeneratorRefine();
+    }
 }

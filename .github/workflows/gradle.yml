@@ -29,6 +29,8 @@ jobs:
         distribution: 'temurin'
     - name: Move Dir
       run : cd ./eco-location-back
+    - name: get All
+      run : ls
     - name: Set DB_URL
       run: echo DB_URL=${{ secrets.DB_URL }}
     - name: Set DB_USERNAME

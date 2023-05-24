@@ -40,6 +40,8 @@ jobs:
       
     - name: Grant execute permission for gradlew
       run: chmod +x ./eco-location-back/gradlew
+    - name: init Gradle
+      run: ./eco-location-back/gradlew init
     - name: Build with Gradle
       run: ./eco-location-back/gradlew clean build -x test -Pprofile=prod
     - name : Build Docker Image

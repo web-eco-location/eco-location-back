@@ -28,8 +28,8 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Set DB_URL
-      run: echo DB_URL=${{ secrets.DB_URL }}
+    - name: Set DB_HOST
+      run: echo DB_HOST=${{ secrets.DB_URL }}
     - name: Set DB_USERNAME
       run: echo DB_USERNAME=${{ secrets.DB_USERNAME }}
     - name: Set DB_PASSWORD

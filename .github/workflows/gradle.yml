@@ -39,9 +39,9 @@ jobs:
       run: echo DB_PASSWORD=${{ secrets.DB_PASSWORD }}
       
     - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
+      run: chmod +x ./eco-location-back/gradlew
     - name: Build with Gradle
-      run: ./gradlew clean build -x test -Pprofile=prod
+      run: ./eco-location-back/gradlew clean build -x test -Pprofile=prod
     - name : Build Docker Image
       run: docker build -t dnwo0719/eco-location-back .
     - name: DockerHub Login

@@ -10,9 +10,9 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://{serverIP}:{serverPort}/eco?characterEncoding=UTF-8&serverTimezone=UTC
-    username: {serverDB's username}
-    password: {serverDB's password}
+    url: jdbc:mariadb://${MARIADB_HOST}:3306/eco?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${MARIADB_USERNAME}
+    password: ${MARIADB_PASSWORD}
   batch:
     jdbc:
       initialize-schema: always

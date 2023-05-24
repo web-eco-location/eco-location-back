@@ -28,12 +28,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Set DB_HOST
-      run: echo MARIADB_HOST=${{ secrets.DB_URL }}
-    - name: Set DB_USERNAME
-      run: echo MARIADB_USERNAME=${{ secrets.DB_USERNAME }}
-    - name: Set DB_PASSWORD
-      run: echo MARIADB_PASSWORD=${{ secrets.DB_PASSWORD }}
       
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew

@@ -1,0 +1,20 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${MARIADB_HOST}:3306/eco?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${MARIADB_USERNAME}
+    password: ${MARIADB_PASSWORD}
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: true

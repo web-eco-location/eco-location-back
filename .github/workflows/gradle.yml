@@ -5,12 +5,10 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Java CI with Gradle and NHN CD
 
 on:
   push:
-    branches: [ "deploy" ]
-  pull_request:
     branches: [ "deploy" ]
 
 permissions:
@@ -58,3 +56,24 @@ jobs:
     - name: DockerHub Push
       run: docker push dnwo0719/eco-location-back
       working-directory: ${{ env.working-directory }}
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: centos
+        key: ${{ secrets.KEY }}
+        script: |
+          sudo docker stop eco-location-back
+          sudo docker rm eco-location-back
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/eco-location-back
+          docker run -d --name eco-location-back --network ${{ secrets.NETWORK }} -p ${{ secrets.USER_PORT }}:${{ secrets.USER_PORT }} ${{ secrets.DOCKERHUB_USERNAME }}/eco-location-back
+          docker image prune -f

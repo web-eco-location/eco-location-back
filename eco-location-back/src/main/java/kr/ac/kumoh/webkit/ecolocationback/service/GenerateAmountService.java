@@ -29,7 +29,7 @@ public class GenerateAmountService {
                 "select NEW kr.ac.kumoh.webkit.ecolocationback.dto.response.GenerateAmountByAreaDto" +
                         "(a.area, sum(a.srcSolar) as solarAmount, sum(a.srcWind) as windAmount) " +
                         "FROM kr.ac.kumoh.webkit.ecolocationback.entity.AreaGeneratorSource a " +
-                        "where a.date like '" + date + "%' group by a.area"
+                        "where a.date like '" + date + "%' and not a.area = '소계' group by a.area"
         , GenerateAmountByAreaDto.class);
         List<GenerateAmountByAreaDto> resultList = query.getResultList();
 

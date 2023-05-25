@@ -56,15 +56,8 @@ jobs:
     - name: DockerHub Push
       run: docker push dnwo0719/eco-location-back
       working-directory: ${{ env.working-directory }}
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    environment: production
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
+# 배포 시작
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:

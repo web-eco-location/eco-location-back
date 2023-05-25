@@ -25,7 +25,8 @@ jobs:
         username: centos
         key: ${{ secrets.KEY }}
         script: |
-          sudo docker stop $(docker ps -q --filter ancestor=eco-location-back)
+          sudo docker stop eco-location-back
+          sudo docker rm eco-location-back
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/eco-location-back
           docker run -d --name eco-location-back --network ${{ secrets.NETWORK }} -p ${{ secrets.USER_PORT }}:${{ secrets.USER_PORT }} ${{ secrets.DOCKERHUB_USERNAME }}/eco-location-back
           docker image prune -f

@@ -38,9 +38,11 @@ $ sudo chmod 666 /var/run/docker.sock
 ```
 
 #### docker로 mariaDB 띄우기
+
 ```shell
+$ docker network create my-network
 $ docker pull mariadb
-$ docker run --name mariadb -d -p 3306:3306 --restart=always -e MYSQL_ROOT_PASSWORD={초기 root 비밀번호} mariadb
+$ docker run --name mariadb -d --network my-network -p 3306:3306 --restart=always -e MYSQL_ROOT_PASSWORD={초기 root 비밀번호} -e MYSQL_DATABASE=eco mariadb 
 ```
 - mariadb 유저, 테이블 생성
 ```shell
@@ -49,4 +51,9 @@ $ mysql -u root -p
 / CREATE USER '{유저명}'@'%' IDENTIFIED BY '{비밀번호}';
 / grant all privileges on {스키마 명}.* to 'tester'@'%';
 / flush privileges;
+```
+
+- DockerHub에서 받아온 프로젝트 network로 연결
+```shell
+$ docker run -d --network my-network -p 8080:8080 dnwo0719/eco-location-back
 ```

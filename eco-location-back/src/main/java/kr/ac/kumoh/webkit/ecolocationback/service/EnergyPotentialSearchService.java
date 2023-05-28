@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +26,26 @@ public class EnergyPotentialSearchService {
 
     // 사용자가 원하는 기간을 지정하여 보내면 지정된 시간대 사이의 잠재 발전량 데이터를 전부 전송한다.
     public List<EnergyPotential> getEPByForecastTimeBetween(LocalDateTime firstForecastTime, LocalDateTime secondForecastTime){
-        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(firstForecastTime, secondForecastTime).spliterator(), false)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedStartTime = firstForecastTime.format(formatter);
+        formattedStartTime = formattedStartTime.replace("T", " ");
+
+        String formattedEndTime = secondForecastTime.format(formatter);
+        formattedEndTime = formattedEndTime.replace("T", " ");
+        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(LocalDateTime.parse(formattedStartTime, formatter),LocalDateTime.parse(formattedEndTime, formatter)).spliterator(), false)
                 .collect(Collectors.toList());
         return energyPotentialDocumentList.stream().map(EnergyPotential::fromDocument).collect(Collectors.toList());
     }
 
     public List<PotentialByRegionDto> getAllEnergyPotentialByDate(LocalDateTime startTime, LocalDateTime endTime) {
-        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(startTime,endTime).spliterator(), false)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedStartTime = startTime.format(formatter);
+        formattedStartTime = formattedStartTime.replace("T", " ");
+
+        String formattedEndTime = endTime.format(formatter);
+        formattedEndTime = formattedEndTime.replace("T", " ");
+
+        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(LocalDateTime.parse(formattedStartTime, formatter),LocalDateTime.parse(formattedEndTime, formatter)).spliterator(), false)
                 .collect(Collectors.toList());
         List<EnergyPotential> energyPotentialList = energyPotentialDocumentList.stream().map(EnergyPotential::fromDocument).collect(Collectors.toList());
         List<PotentialByRegionDto> response = groupAndSumByArea(energyPotentialList);
@@ -40,7 +54,14 @@ public class EnergyPotentialSearchService {
     }
 
     public List<PotentialBySourceDto> getAllEnergyPotentialByDateAndRegion(LocalDateTime startTime, LocalDateTime endTime) {
-        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(startTime,endTime).spliterator(), false)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedStartTime = startTime.format(formatter);
+        formattedStartTime = formattedStartTime.replace("T", " ");
+
+        String formattedEndTime = endTime.format(formatter);
+        formattedEndTime = formattedEndTime.replace("T", " ");
+
+        List<EnergyPotentialDocument> energyPotentialDocumentList = StreamSupport.stream(energyPotentialSearchRepository.findByForecastTimeBetween(LocalDateTime.parse(formattedStartTime, formatter),LocalDateTime.parse(formattedEndTime, formatter)).spliterator(), false)
                 .collect(Collectors.toList());
         List<EnergyPotential> energyPotentialList = energyPotentialDocumentList.stream().map(EnergyPotential::fromDocument).collect(Collectors.toList());
         List<PotentialBySourceDto> response = groupAndSumByAreaAndPowerType(energyPotentialList);

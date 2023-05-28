@@ -18,3 +18,6 @@ spring:
       initialize-schema: always
     job:
       enabled: true
+
+elasticsearch:
+  hostAndPort: ${ES_HOST_PORT}

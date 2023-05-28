@@ -35,6 +35,7 @@ jobs:
         spring.datasource.url: ${{ secrets.MARIADB_URL }} 
         spring.datasource.username: ${{ secrets.MARIADB_USERNAME }} 
         spring.datasource.password: ${{ secrets.MARIADB_PASSWORD }}
+        elasticsearch.hostAndPort: ${{ secrets.ES_HOST_AND_PORT }}
       
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew

@@ -1,5 +1,6 @@
 package kr.ac.kumoh.webkit.ecolocationback.entity;
 
+import kr.ac.kumoh.webkit.ecolocationback.entity.document.EnergyPotentialDocument;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class EnergyPotential {
     public EnergyPotential(String powerType, String areaName, String createTime_s, String forecastTime_s,
                            Long leadTime, double forecastEnergyPotential, double forecastCapacity) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         LocalDateTime createTime = LocalDateTime.parse(createTime_s, formatter);
         LocalDateTime forecastTime = LocalDateTime.parse(forecastTime_s, formatter);
@@ -52,5 +53,16 @@ public class EnergyPotential {
         this.leadTime = leadTime;
         this.forecastEnergyPotential = forecastEnergyPotential;
         this.forecastCapacity = forecastCapacity;
+    }
+    public static EnergyPotential fromDocument(EnergyPotentialDocument document) {
+        return EnergyPotential.builder()
+                .powerType(document.getPowerType())
+                .areaName(document.getAreaName())
+                .createTime_s(String.valueOf(document.getCreateTime()))
+                .forecastTime_s(String.valueOf(document.getForecastTime()))
+                .leadTime(document.getLeadTime())
+                .forecastEnergyPotential(document.getForecastEnergyPotential())
+                .forecastCapacity(document.getForecastCapacity())
+                .build();
     }
 }

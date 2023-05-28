@@ -18,3 +18,13 @@ spring:
       initialize-schema: always
     job:
       enabled: true
+
+
+#logging:
+ # level:
+  #  org.hibernate.SQL: debug
+   # org.hibernate.type: trace
+    # Spring Data Elasticsearch가 제대로 동작하는지 확인하고 싶다면, 아래 로거를 등록합니다.
+    #org.springframework.data.elasticsearch.client.WIRE: TRACE
+elasticsearch:
+  hostAndPort: localhost:9200

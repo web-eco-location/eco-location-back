@@ -38,9 +38,9 @@ public class DatabaseInitializerService {
     public void initializeDatabase() {
         clearRepositories();
 
-        inputData("generator", "/csv/generators.csv");
-        inputData("energyPotential", "/csv/totalEnergyPotential.csv");
-        inputData("areaGeneratorSource", "/csv/AreaGeneratorSource.csv");
+        inputData("generator", "src/main/resources/csv/generators.csv");
+        inputData("energyPotential", "src/main/resources/csv/totalEnergyPotential.csv");
+        inputData("areaGeneratorSource", "src/main/resources/csv/AreaGeneratorSource.csv");
     }
     private void clearRepositories() {
         // 모든 리포지토리의 데이터 삭제
@@ -52,10 +52,7 @@ public class DatabaseInitializerService {
 
     public void inputData(String jobId, String filePath) {
         try {
-            String curWorkingDir = System.getProperty("user.dir");
-            String path = curWorkingDir + "/src/main/resources";
-
-            CSVReader csvReader = new CSVReaderBuilder(new FileReader(path + filePath)).withSkipLines(1).build();
+            CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath)).withSkipLines(1).build();
             String[] line;
             List<GeneratorDto> generatorDtos = new ArrayList<>();
             List<EnergyPotentialDto> energyPotentialDtos = new ArrayList<>();

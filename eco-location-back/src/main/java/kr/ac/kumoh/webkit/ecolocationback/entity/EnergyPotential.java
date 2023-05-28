@@ -41,7 +41,7 @@ public class EnergyPotential {
     public EnergyPotential(String powerType, String areaName, String createTime_s, String forecastTime_s,
                            Long leadTime, double forecastEnergyPotential, double forecastCapacity) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
 
         LocalDateTime createTime = LocalDateTime.parse(createTime_s, formatter);
         LocalDateTime forecastTime = LocalDateTime.parse(forecastTime_s, formatter);
@@ -55,11 +55,13 @@ public class EnergyPotential {
         this.forecastCapacity = forecastCapacity;
     }
     public static EnergyPotential fromDocument(EnergyPotentialDocument document) {
+        String createTime_s = String.valueOf(document.getCreateTime()).replace("T", " ");
+        String forecastTime_s = String.valueOf(document.getForecastTime()).replace("T", " ");
         return EnergyPotential.builder()
                 .powerType(document.getPowerType())
                 .areaName(document.getAreaName())
-                .createTime_s(String.valueOf(document.getCreateTime()))
-                .forecastTime_s(String.valueOf(document.getForecastTime()))
+                .createTime_s(createTime_s)
+                .forecastTime_s(forecastTime_s)
                 .leadTime(document.getLeadTime())
                 .forecastEnergyPotential(document.getForecastEnergyPotential())
                 .forecastCapacity(document.getForecastCapacity())

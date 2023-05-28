@@ -1,5 +1,6 @@
 package kr.ac.kumoh.webkit.ecolocationback.entity;
 
+import kr.ac.kumoh.webkit.ecolocationback.entity.document.GeneratorDocument;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -53,5 +54,21 @@ public class Generator {
         this.businessType = businessType;
         this.wideArea = wideArea;
         this.detailArea = detailArea;
+    }
+
+    public static Generator fromDocument(GeneratorDocument document) {
+        return Generator.builder()
+                .companyName(document.getCompanyName())
+                .generatorName(document.getGeneratorName())
+                .generatorNum(document.getGeneratorNum())
+                .generateAmount(document.getGenerateAmount())
+                .memberType(document.getMemberType())
+                .powerSupply(document.getPowerSupply())
+                .powerSource(document.getPowerSource())
+                .generationType(document.getGenerationType())
+                .businessType(document.getBusinessType())
+                .wideArea(document.getWideArea())
+                .detailArea(document.getDetailArea())
+                .build();
     }
 }

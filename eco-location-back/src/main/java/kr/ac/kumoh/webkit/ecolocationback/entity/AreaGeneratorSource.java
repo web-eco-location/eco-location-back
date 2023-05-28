@@ -1,13 +1,12 @@
 package kr.ac.kumoh.webkit.ecolocationback.entity;
 
+import kr.ac.kumoh.webkit.ecolocationback.entity.document.AreaGeneratorSourceDocument;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.*;
 
@@ -107,5 +106,30 @@ public class AreaGeneratorSource {
         this.srcAll = srcAll;
         this.recyclePercent = recyclePercent;
     }
-    
+
+    public static AreaGeneratorSource fromDocument(AreaGeneratorSourceDocument document) {
+        return AreaGeneratorSource.builder()
+                .date(document.getDate())
+                .area(document.getArea())
+                .srcNucl(document.getSrcNucl())
+                .srcBcoal(document.getSrcBcoal())
+                .srcHcoal(document.getSrcHcoal())
+                .srcOil(document.getSrcOil())
+                .srcLng(document.getSrcLng())
+                .srcPump(document.getSrcPump())
+                .srcFuelcell(document.getSrcFuelcell())
+                .srcCoalgas(document.getSrcCoalgas())
+                .srcSolar(document.getSrcSolar())
+                .srcWind(document.getSrcWind())
+                .srcWater(document.getSrcWater())
+                .srcSea(document.getSrcSea())
+                .srcBio(document.getSrcBio())
+                .srcWaste(document.getSrcWaste())
+                .srcRecycleSum(document.getSrcRecycleSum())
+                .srcOther(document.getSrcOther())
+                .srcAll(document.getSrcAll())
+                .recyclePercent(document.getRecyclePercent())
+                .build();
+    }
+
 }

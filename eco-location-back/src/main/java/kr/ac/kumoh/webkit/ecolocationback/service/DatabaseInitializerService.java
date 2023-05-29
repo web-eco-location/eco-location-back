@@ -12,8 +12,11 @@ import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import kr.ac.kumoh.webkit.ecolocationback.repository.AreaGeneratorSourceRepository;
 import kr.ac.kumoh.webkit.ecolocationback.repository.EnergyPotentialRepository;
 import kr.ac.kumoh.webkit.ecolocationback.repository.GeneratorRepository;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -38,9 +41,9 @@ public class DatabaseInitializerService {
     public void initializeDatabase() {
         clearRepositories();
 
-        inputData("generator", "src/main/resources/csv/generators.csv");
-        inputData("energyPotential", "src/main/resources/csv/totalEnergyPotential.csv");
-        inputData("areaGeneratorSource", "src/main/resources/csv/AreaGeneratorSource.csv");
+        inputData("generator", "/csv/generators.csv");
+        inputData("energyPotential", "/csv/totalEnergyPotential.csv");
+        inputData("areaGeneratorSource", "/csv/AreaGeneratorSource.csv");
     }
     private void clearRepositories() {
         // 모든 리포지토리의 데이터 삭제
@@ -52,7 +55,9 @@ public class DatabaseInitializerService {
 
     public void inputData(String jobId, String filePath) {
         try {
-            CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath)).withSkipLines(1).build();
+            Resource resource = new ClassPathResource(filePath);
+            File file = resource.getFile();
+            CSVReader csvReader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
             String[] line;
             List<GeneratorDto> generatorDtos = new ArrayList<>();
             List<EnergyPotentialDto> energyPotentialDtos = new ArrayList<>();

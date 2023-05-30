@@ -12,8 +12,11 @@ import kr.ac.kumoh.webkit.ecolocationback.entity.Generator;
 import kr.ac.kumoh.webkit.ecolocationback.repository.AreaGeneratorSourceRepository;
 import kr.ac.kumoh.webkit.ecolocationback.repository.EnergyPotentialRepository;
 import kr.ac.kumoh.webkit.ecolocationback.repository.GeneratorRepository;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -52,10 +55,9 @@ public class DatabaseInitializerService {
 
     public void inputData(String jobId, String filePath) {
         try {
-            String curWorkingDir = System.getProperty("user.dir");
-            String path = curWorkingDir + "/src/main/resources";
-
-            CSVReader csvReader = new CSVReaderBuilder(new FileReader(path + filePath)).withSkipLines(1).build();
+            Resource resource = new ClassPathResource(filePath);
+            File file = resource.getFile();
+            CSVReader csvReader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
             String[] line;
             List<GeneratorDto> generatorDtos = new ArrayList<>();
             List<EnergyPotentialDto> energyPotentialDtos = new ArrayList<>();
